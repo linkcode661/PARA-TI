@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Mi Amor ❤️</title>
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bcf7f, #4ecdc4, #45b7d1);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            position: relative;
+            z-index: 2;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+        }
+        .title {
+            font-size: 2.5em;
+            color: #e74c3c;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .message {
+            font-size: 1.3em;
+            color: #2c3e50;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-style: italic;
+        }
+        .question {
+            font-size: 1.8em;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+        .input-group {
+            margin-bottom: 30px;
+        }
+        .input-group label {
+            font-size:1.2em;
+            color:#2c3e50;
+            font-weight:bold;
+        }
+        .input-group input {
+            padding:10px;
+            border-radius:10px;
+            border:1px solid #ccc;
+            font-size:1em;
+            width:70%;
+            margin-top:10px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 20px 40px;
+            font-size: 1.4em;
+            font-weight: bold;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            overflow: hidden;
+            background: #eee;
+        }
+        .btn-yes {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+        }
+        .btn-no {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            color: white;
+        }
+        .btn .msg-btn {
+            display: block;
+            font-size:0.8em;
+            color:#fff;
+            margin-top:5px;
+        }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Para Mi Amor <span class="emoji">💕</span></h1>
+        <div class="message">
+            Cada día que pasa contigo es un regalo del cielo.<br>
+            Eres la razón de mi sonrisa, la luz que ilumina mi camino y el latido que da vida a mi corazón.
+        </div>
+        <div class="question">¿Aún me amas como yo te amo a ti?</div>
+        <div class="input-group">
+            <label for="nombre">Tu nombre:</label><br>
+            <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre aquí">
+        </div>
+        <div class="buttons">
+            <button class="btn btn-yes" id="btn-yes" disabled>
+                <span class="emoji">💖</span> Sí, te amo <span class="emoji">💖</span>
+                <span class="msg-btn">¡Haz clic para responder!</span>
+            </button>
+            <button class="btn btn-no" id="btn-no" disabled>
+                <span class="emoji">💙</span> Ya no siento lo mismo <span class="emoji">💙</span>
+                <span class="msg-btn">¡Haz clic para responder!</span>
+            </button>
+        </div>
+    </div>
+    <script>
+    // Habilitar/deshabilitar botones según el campo nombre
+    document.getElementById('nombre').addEventListener('input', function() {
+        const nombre = this.value.trim();
+        document.getElementById('btn-yes').disabled = nombre === '';
+        document.getElementById('btn-no').disabled = nombre === '';
+    });
+
+    document.getElementById('btn-yes').addEventListener('click', function() {
+        responder('yes');
+    });
+    document.getElementById('btn-no').addEventListener('click', function() {
+        responder('no');
+    });
+
+    function responder(answer) {
+        const nombre = document.getElementById('nombre').value.trim() || 'Sin nombre';
+        let btnYes = document.getElementById('btn-yes');
+        let btnNo = document.getElementById('btn-no');
+        if (answer === 'yes') {
+            btnYes.querySelector('.msg-btn').textContent = '¡Gracias por tu respuesta!';
+            btnNo.disabled = true;
+        } else {
+            btnNo.querySelector('.msg-btn').textContent = '¡Gracias por tu respuesta!';
+            btnYes.disabled = true;
+        }
+        btnYes.disabled = true;
+        btnNo.disabled = true;
+        // Enviar notificación por WhatsApp usando CallMeBot
+        let mensaje = '';
+        if (answer === 'yes') {
+            mensaje = `💌 ¡Nueva respuesta de ${nombre}!%0AMe dijo que SÍ me ama.%0A¡Nuestro amor sigue creciendo! 💖✨`;
+        } else {
+            mensaje = `💌 ¡Nueva respuesta de ${nombre}!%0AMe dijo que ya no siente lo mismo.%0AEl amor a veces cambia, pero siempre quedarán los recuerdos. 💙🌧️`;
+        }
+        const phone = '51912798469';
+        const apikey = '3624044';
+        const url = `https://api.callmebot.com/whatsapp.php?phone=${phone}&text=${encodeURIComponent(mensaje)}&apikey=${apikey}`;
+        fetch(url, { method: 'GET', mode: 'no-cors' });
+    }
+    </script>
+</body>
+</html>
